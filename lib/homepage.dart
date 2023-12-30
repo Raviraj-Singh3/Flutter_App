@@ -1,56 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api/drawer.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+  const MyHomePage({
+    super.key,
+  });
+  // final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var username = TextEditingController();
+  var inputText = "Change Me";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text(widget.title),
         backgroundColor: Colors.purple,
       ),
-      body: Image.network('https://picsum.photos/250?image=9'),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const [
-            // DrawerHeader(
-            //   decoration: BoxDecoration(color: Colors.purple),
-            //   child: Text(
-            //     "Hi, i am drawer",
-            //     style: TextStyle(color: Colors.white),
-            //   ),
-            // ),
-            UserAccountsDrawerHeader(
-              accountName: Text("Raviraj Singh"),
-              accountEmail: Text("raviraj@gmail.com"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/dp.jpg"),
-              ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          child: Card(
+            // color: Colors.blueAccent,
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/studyRoom.jpg",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                 Text(inputText,
+                style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18,
+                        fontStyle: FontStyle.italic,
+                                ),
+                ),
+                const SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: username,
+                      decoration: const InputDecoration(
+                        hintText: "Enter Text Here",
+                        border: OutlineInputBorder(),
+                        labelText: "Name",
+                      ),
+                  ),
+                ),
+                const SizedBox(height: 20,),
+                FilledButton(onPressed: (){
+                  setState(() {
+                    inputText = username.text;
+                    username.text = "";
+                  });
+                }, child: const Text("Submit"))
+              ],
             ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Account"),
-              subtitle: Text("Personal"),
-              trailing: Icon(Icons.edit),
-            ),
-            ListTile(
-              leading: Icon(Icons.email),
-              title: Text("Email"),
-              subtitle: Text("raviraj@gmail.com"),
-              trailing: Icon(Icons.send),
-            ),
-          ],
+          ),
         ),
       ),
+      drawer: const MyDrawer(),
     );
   }
 }
