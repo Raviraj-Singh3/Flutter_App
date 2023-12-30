@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api/utils/Constants.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,7 +43,8 @@ class _LoginState extends State<LoginPage> {
                 const SizedBox(height: 20,),
                 FilledButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, "/home");
+                      Constants.prefs?.setBool("logged", true);
+                      Navigator.pushReplacementNamed(context, "/home");
                     },
                     child: const Text("LogIn")
                 )

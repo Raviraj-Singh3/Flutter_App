@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_api/drawer.dart';
 
+import '../utils/Constants.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
@@ -58,13 +60,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     inputText = username.text;
                     username.text = "";
                   });
-                }, child: const Text("Submit"))
+                }, child: const Text("Submit"),
+                ),
               ],
             ),
           ),
         ),
       ),
       drawer: const MyDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Constants.prefs?.setBool("logged", false);
+          Navigator.pushReplacementNamed(context, "/login");
+        },
+        child: Icon(Icons.exit_to_app, size: 50,),
+
+      ),
     );
   }
 }
